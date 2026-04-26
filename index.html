@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DPIP — Decentralised Platform for Public Infrastructure</title>
+  <meta name="description" content="A transparent, blockchain-inspired platform for government tenders and public infrastructure contracts. Contractors bid, the highest bidder wins, everything is publicly tracked.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+</head>
+<body>
+
+<!-- ═══════ NAVBAR ═══════ -->
+<nav class="navbar">
+  <a class="nav-logo" href="#" onclick="navigate('home'); return false;">
+    <div class="logo-icon">🏗️</div>
+    <div>
+      <div class="logo-text">DPIP</div>
+      <div class="logo-sub">PUBLIC INFRASTRUCTURE</div>
+    </div>
+  </a>
+
+  <div class="nav-links" id="nav-links">
+    <a href="#" data-page="home" onclick="navigate('home'); return false;">Home</a>
+    <a href="#" data-page="tenders" onclick="navigate('tenders'); return false;">Browse Tenders</a>
+    <a href="#" data-page="tracker" onclick="navigate('tracker'); return false;">Public Tracker</a>
+  </div>
+
+  <div class="nav-actions" id="nav-actions">
+    <button class="btn btn-outline btn-sm" onclick="openAuthModal('login')">Sign In</button>
+    <button class="btn btn-primary btn-sm" onclick="openAuthModal('register')">Register</button>
+  </div>
+</nav>
+
+<!-- ═══════ MAIN ═══════ -->
+<main class="main">
+
+  <!-- ─── HOME PAGE ─── -->
+  <div class="page active" id="page-home">
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-left">
+          <div class="hero-eyebrow">DECENTRALISED · TRANSPARENT · ACCOUNTABLE</div>
+          <h1>
+            Public Infrastructure<br>
+            <span class="highlight">Bidding Platform</span>
+          </h1>
+          <p>A transparent government tendering system where contractors compete openly, bids are publicly visible, and contracts are automatically awarded to the highest bidder — no middlemen, no opacity.</p>
+          <div class="hero-actions">
+            <button class="btn btn-gold btn-lg" onclick="navigate('tenders')">Browse Open Tenders</button>
+            <button class="btn btn-outline btn-lg" onclick="navigate('tracker')">Public Tracker</button>
+          </div>
+          <div class="hero-stats">
+            <div class="stat">
+              <div class="stat-value" id="stat-tenders">—</div>
+              <div class="stat-label">Total Tenders</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value" id="stat-open">—</div>
+              <div class="stat-label">Open Now</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value" id="stat-budget">—</div>
+              <div class="stat-label">Total Value</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="live-board">
+            <div class="live-board-header">
+              <div style="font-family:'Rajdhani',sans-serif;font-size:0.95rem;font-weight:700">Live Tender Feed</div>
+              <div class="live-badge"><div class="live-dot"></div> LIVE</div>
+            </div>
+            <div class="tender-preview-list" id="hero-tender-list">
+              <!-- Rendered by JS -->
+            </div>
+            <div style="padding:0.75rem 1rem;border-top:1px solid var(--border);text-align:center">
+              <button class="btn btn-outline btn-sm" style="width:100%" onclick="navigate('tenders')">View All Tenders →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+      <div class="section">
+        <div style="text-align:center;margin-bottom:3rem">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;letter-spacing:3px;color:var(--accent);margin-bottom:0.75rem">PLATFORM OVERVIEW</div>
+          <h2 style="font-family:'Rajdhani',sans-serif;font-size:2rem;font-weight:700">How DPIP Works</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem">
+          <div style="text-align:center;padding:1.5rem 1rem">
+            <div style="font-size:2.5rem;margin-bottom:1rem">📋</div>
+            <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:0.5rem">1. Government Posts Tender</h3>
+            <p style="font-size:0.82rem;color:var(--text2);line-height:1.6">Government officials (admins) create and publish tenders for public infrastructure projects with full details and budget estimates.</p>
+          </div>
+          <div style="text-align:center;padding:1.5rem 1rem">
+            <div style="font-size:2.5rem;margin-bottom:1rem">🏦</div>
+            <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:0.5rem">2. Contractors Bid</h3>
+            <p style="font-size:0.82rem;color:var(--text2);line-height:1.6">Registered contractors review tender details and submit competitive bids before the deadline. All bids are recorded transparently.</p>
+          </div>
+          <div style="text-align:center;padding:1.5rem 1rem">
+            <div style="font-size:2.5rem;margin-bottom:1rem">🏆</div>
+            <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:0.5rem">3. Highest Bid Wins</h3>
+            <p style="font-size:0.82rem;color:var(--text2);line-height:1.6">After the deadline, the platform allocates the contract to the highest bidder. The government confirms the award with full transparency.</p>
+          </div>
+          <div style="text-align:center;padding:1.5rem 1rem">
+            <div style="font-size:2.5rem;margin-bottom:1rem">🌐</div>
+            <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:0.5rem">4. Publicly Displayed</h3>
+            <p style="font-size:0.82rem;color:var(--text2);line-height:1.6">All awarded contracts, bid histories, and project timelines are publicly accessible on the tracker — full accountability for every rupee spent.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUICK ACCESS -->
+    <div class="section" style="padding-top:2rem">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem">
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.5rem;cursor:pointer;transition:all 0.2s" onclick="openAuthModal('register')" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="font-size:1.75rem;margin-bottom:0.75rem">🏗️</div>
+          <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:0.4rem">I'm a Contractor</h3>
+          <p style="font-size:0.82rem;color:var(--text2);line-height:1.5;margin-bottom:1rem">Register your company, browse tenders, and submit competitive bids for government infrastructure projects.</p>
+          <span class="btn btn-primary btn-sm">Register as Contractor →</span>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.5rem;cursor:pointer;transition:all 0.2s" onclick="openAuthModal('login')" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="font-size:1.75rem;margin-bottom:0.75rem">🏛️</div>
+          <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:0.4rem">I'm from Government</h3>
+          <p style="font-size:0.82rem;color:var(--text2);line-height:1.5;margin-bottom:1rem">Post tenders, manage bids, allocate contracts, and track project progress through your admin dashboard.</p>
+          <span class="btn btn-gold btn-sm">Admin Sign In →</span>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.5rem;cursor:pointer;transition:all 0.2s" onclick="navigate('tracker')" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="font-size:1.75rem;margin-bottom:0.75rem">👥</div>
+          <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:0.4rem">I'm a Citizen</h3>
+          <p style="font-size:0.82rem;color:var(--text2);line-height:1.5;margin-bottom:1rem">Track ongoing and awarded public infrastructure projects in your region. No login required — full transparency.</p>
+          <span class="btn btn-outline btn-sm" style="border-color:var(--green);color:var(--green)">View Public Tracker →</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 
+    DEMO CREDENTIALS 
+    <div class="section" style="padding-top:1rem;padding-bottom:3rem">
+      <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:1.5rem">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;letter-spacing:2px;color:var(--accent);margin-bottom:1rem">DEMO CREDENTIALS FOR TESTING</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem">
+          <div>
+            <div style="font-size:0.75rem;font-weight:600;color:var(--gold);margin-bottom:0.4rem">🏛️ GOVERNMENT ADMIN</div>
+            <div style="font-size:0.78rem;color:var(--text2);font-family:'IBM Plex Mono',monospace">admin@gov.in / admin123</div>
+          </div>
+          <div>
+            <div style="font-size:0.75rem;font-weight:600;color:var(--gold);margin-bottom:0.4rem">🏛️ STATE PWD ADMIN</div>
+            <div style="font-size:0.78rem;color:var(--text2);font-family:'IBM Plex Mono',monospace">pwd@gov.in / pwd123</div>
+          </div>
+          <div>
+            <div style="font-size:0.75rem;font-weight:600;color:var(--green);margin-bottom:0.4rem">🏗️ CONTRACTOR 1</div>
+            <div style="font-size:0.78rem;color:var(--text2);font-family:'IBM Plex Mono',monospace">buildtech@mail.com / build123</div>
+          </div>
+          <div>
+            <div style="font-size:0.75rem;font-weight:600;color:var(--green);margin-bottom:0.4rem">🏗️ CONTRACTOR 2</div>
+            <div style="font-size:0.78rem;color:var(--text2);font-family:'IBM Plex Mono',monospace">skybridge@mail.com / sky123</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    -->
+
+  </div>
+
+  <!-- ─── TENDERS PAGE ─── -->
+  <div class="page" id="page-tenders">
+    <div class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-title">All Tenders</div>
+          <div class="section-sub">Browse and bid on active government infrastructure tenders</div>
+        </div>
+        <div class="search-bar">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" placeholder="Search tenders..." oninput="doSearch(this.value)">
+        </div>
+      </div>
+
+      <!-- Category Filters -->
+      <div style="margin-bottom:1rem">
+        <div style="font-size:0.72rem;color:var(--text3);font-family:'IBM Plex Mono',monospace;letter-spacing:1px;margin-bottom:0.5rem">CATEGORY</div>
+        <div class="filters filter-group-category">
+          <button class="filter-btn active" data-value="all" onclick="setFilter('category','all')">All</button>
+          <button class="filter-btn" data-value="Road" onclick="setFilter('category','Road')">🛣️ Road</button>
+          <button class="filter-btn" data-value="Water" onclick="setFilter('category','Water')">💧 Water</button>
+          <button class="filter-btn" data-value="Power" onclick="setFilter('category','Power')">⚡ Power</button>
+          <button class="filter-btn" data-value="Bridge" onclick="setFilter('category','Bridge')">🌉 Bridge</button>
+          <button class="filter-btn" data-value="Building" onclick="setFilter('category','Building')">🏗️ Building</button>
+          <button class="filter-btn" data-value="Sewage" onclick="setFilter('category','Sewage')">🔧 Sewage</button>
+          <button class="filter-btn" data-value="Park" onclick="setFilter('category','Park')">🌳 Park</button>
+          <button class="filter-btn" data-value="Transport" onclick="setFilter('category','Transport')">🚌 Transport</button>
+        </div>
+      </div>
+      <div style="margin-bottom:1.5rem">
+        <div style="font-size:0.72rem;color:var(--text3);font-family:'IBM Plex Mono',monospace;letter-spacing:1px;margin-bottom:0.5rem">STATUS</div>
+        <div class="filters filter-group-status">
+          <button class="filter-btn active" data-value="all" onclick="setFilter('status','all')">All Status</button>
+          <button class="filter-btn" data-value="open" onclick="setFilter('status','open')">● Open</button>
+          <button class="filter-btn" data-value="closed" onclick="setFilter('status','closed')">■ Closed</button>
+          <button class="filter-btn" data-value="awarded" onclick="setFilter('status','awarded')">★ Awarded</button>
+        </div>
+      </div>
+
+      <div class="tender-grid" id="tenders-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── DASHBOARD PAGE ─── -->
+  <div class="page" id="page-dashboard">
+    <div id="dashboard-content">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+
+  <!-- ─── PUBLIC TRACKER PAGE ─── -->
+  <div class="page" id="page-tracker">
+    <div class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Public Project Tracker</div>
+          <div class="section-sub">Full transparency on all government infrastructure tenders — no login required</div>
+        </div>
+      </div>
+      <div id="tracker-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer>
+  <div style="margin-bottom:0.5rem;font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text2)">DPIP — Decentralised Platform for Public Infrastructure</div>
+  <div>© 2025 · Transparent · Accountable · Open to Citizens</div>
+</footer>
+
+<!-- ═══════ MODALS ═══════ -->
+
+<!-- Auth Modal -->
+<div class="modal-overlay" id="auth-modal">
+  <div class="modal" style="max-width:440px">
+    <div class="modal-header">
+      <span class="modal-title">Account Access</span>
+      <button class="modal-close" onclick="closeAuthModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login" onclick="switchAuthTab('login')">Sign In</button>
+        <button class="auth-tab" data-tab="register" onclick="switchAuthTab('register')">Register</button>
+      </div>
+
+      <!-- Login Form -->
+      <div id="login-form">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="login-email" placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="login-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+        </div>
+        <div id="login-error" style="color:var(--red);font-size:0.8rem;margin-bottom:0.75rem"></div>
+        <button class="btn btn-primary" style="width:100%" onclick="doLogin()">Sign In</button>
+        <div class="divider">or</div>
+        <button class="btn btn-outline" style="width:100%;font-size:0.8rem" onclick="document.getElementById('login-email').value='admin@gov.in';document.getElementById('login-pass').value='admin123'">Use Admin Demo Credentials</button>
+        <button class="btn btn-outline" style="width:100%;font-size:0.8rem;margin-top:0.5rem" onclick="document.getElementById('login-email').value='buildtech@mail.com';document.getElementById('login-pass').value='build123'">Use Contractor Demo Credentials</button>
+      </div>
+
+      <!-- Register Form -->
+      <div id="register-form" style="display:none">
+        <div class="form-group">
+          <label>Full Name / Organisation Name *</label>
+          <input type="text" id="reg-name" placeholder="e.g. Ramesh Constructions Pvt. Ltd.">
+        </div>
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input type="email" id="reg-email" placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label>Password *</label>
+          <input type="password" id="reg-pass" placeholder="Choose a strong password">
+        </div>
+        <div class="form-group">
+          <label>Account Type *</label>
+          <select id="reg-role">
+            <option value="">Select role...</option>
+            <option value="contractor">Contractor / Bidder</option>
+            <option value="admin">Government Official</option>
+          </select>
+        </div>
+        <div class="form-group" id="license-group" style="display:none">
+          <label>Contractor Licence Number *</label>
+          <input type="text" id="reg-license" placeholder="e.g. LIC-2023-XXXX">
+          <div class="form-help">Your government-issued contractor licence number.</div>
+        </div>
+        <div id="reg-error" style="color:var(--red);font-size:0.8rem;margin-bottom:0.75rem"></div>
+        <button class="btn btn-primary" style="width:100%" onclick="doRegister()">Create Account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tender Detail Modal -->
+<div class="modal-overlay" id="tender-modal">
+  <div class="modal" style="max-width:660px">
+    <div class="modal-header">
+      <span class="modal-title">Tender Details</span>
+      <button class="modal-close" onclick="closeTenderModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- Post Tender Modal -->
+<div class="modal-overlay" id="post-tender-modal">
+  <div class="modal" style="max-width:600px">
+    <div class="modal-header">
+      <span class="modal-title">Post New Tender</span>
+      <button class="modal-close" onclick="closePostTenderModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="post-tender-form" onsubmit="return false">
+        <div class="form-group">
+          <label>Project Title *</label>
+          <input type="text" id="pt-title" placeholder="e.g. Construction of Flyover at NH-8 Junction">
+        </div>
+        <div class="form-group">
+          <label>Project Description *</label>
+          <textarea id="pt-desc" placeholder="Describe the scope of work, specifications, and requirements..." rows="4"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Category *</label>
+            <select id="pt-category">
+              <option value="">Select category...</option>
+              <option value="Road">🛣️ Road</option>
+              <option value="Water">💧 Water</option>
+              <option value="Power">⚡ Power</option>
+              <option value="Bridge">🌉 Bridge</option>
+              <option value="Building">🏗️ Building</option>
+              <option value="Sewage">🔧 Sewage</option>
+              <option value="Park">🌳 Park</option>
+              <option value="Transport">🚌 Transport</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Location / State *</label>
+            <input type="text" id="pt-location" placeholder="e.g. Maharashtra">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Estimated Budget (₹) *</label>
+            <input type="number" id="pt-budget" placeholder="e.g. 50000000" min="1">
+            <div class="form-help">In rupees. Example: 5,00,00,000 = ₹5 Crore</div>
+          </div>
+          <div class="form-group">
+            <label>Bid Deadline *</label>
+            <input type="date" id="pt-deadline">
+          </div>
+        </div>
+        <div id="pt-error" style="color:var(--red);font-size:0.8rem;margin-bottom:0.75rem"></div>
+        <div style="display:flex;gap:0.75rem">
+          <button type="button" class="btn btn-outline" style="flex:1" onclick="closePostTenderModal()">Cancel</button>
+          <button type="button" class="btn btn-gold" style="flex:2" onclick="submitTender()">📋 Publish Tender</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Notification -->
+<div class="notification" id="notification">
+  <div class="notification-icon">✅</div>
+  <div>
+    <div class="notification-title">Notification</div>
+    <div class="notification-msg"></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
