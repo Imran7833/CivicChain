@@ -3,8 +3,8 @@
 A transparent, open-source web platform for government tendering and public infrastructure contracts. Government officials post tenders, contractors bid, the platform allocates contracts to the highest bidder, and everything is publicly displayed.
 
 ## 🔗 Website
-
-Open https://imran7833.github.io/CivicChain/ directly in any browser — no server or build step required.
+https://imran7833.github.io/CivicChain/ 
+Open in any browser
 
 ## 🎯 Features
 
