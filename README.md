@@ -4,7 +4,7 @@ A transparent, open-source web platform for government tendering and public infr
 
 ## 🔗 Live Demo
 
-Open `index.html` directly in any browser — no server or build step required.
+Open https://imran7833.github.io/CivicChain/ directly in any browser — no server or build step required.
 
 ## 🎯 Features
 
